@@ -7,6 +7,7 @@ import { OurStoryComponent } from './components/our-story/our-story.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { CollectionsTeaserComponent } from './components/collections-teaser/collections-teaser.component';
 import { NewsletterFormComponent } from '../../shared/components/newsletter-form/newsletter-form.component';
+import { WhatsappButtonComponent } from '../../shared/components/whatsapp-button/whatsapp-button/whatsapp-button.component';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ import { NewsletterFormComponent } from '../../shared/components/newsletter-form
     ReviewsComponent,
     CollectionsTeaserComponent,
     NewsletterFormComponent,
+    WhatsappButtonComponent,
   ],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {}
+export class HomeComponent { }
