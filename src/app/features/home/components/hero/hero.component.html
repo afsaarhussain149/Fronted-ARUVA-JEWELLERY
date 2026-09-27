@@ -1,0 +1,60 @@
+<section class="bg-cream-50">
+  <div class="relative grid md:grid-cols-[46%_54%] min-h-[420px] md:min-h-[560px]">
+
+    <!-- Text -->
+    <div class="relative z-10 flex flex-col justify-center px-6 sm:px-10 md:px-16 py-10 md:py-0 bg-cream-50">
+      <span class="section-label">{{ slides[active()].eyebrow }}</span>
+      <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl leading-tight text-ink-900 max-w-md">
+        {{ slides[active()].title }}
+      </h1>
+      <p class="mt-4 text-ink-800/70 text-sm sm:text-base">{{ slides[active()].subtitle }}</p>
+      <a routerLink="/collections" class="btn-primary mt-7 w-fit">
+        Shop Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <div class="flex items-center gap-3 mt-10">
+        <span class="text-xs tracking-widest text-ink-800/50">0{{ active() + 1 }} / 0{{ slides.length }}</span>
+        <div class="flex gap-1.5">
+          <button *ngFor="let s of slides; let i = index" (click)="goTo(i)"
+            class="h-[3px] rounded-full transition-all"
+            [class.w-6]="i === active()" [class.bg-gold-400]="i === active()"
+            [class.w-3]="i !== active()" [class.bg-gold-200]="i !== active()">
+          </button>
+        </div>
+        <button (click)="prev()" class="ml-2 hover:text-gold-400 text-ink-800/60" aria-label="Previous">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button (click)="next()" class="hover:text-gold-400 text-ink-800/60" aria-label="Next">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Photo -->
+    <div class="relative h-64 sm:h-96 md:h-auto overflow-hidden">
+      <img [src]="slides[active()].image" alt="Model wearing {{ slides[active()].title }}"
+           class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
+
+      <!-- soft blend with left text panel on desktop -->
+      <div class="hidden md:block absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-cream-50 to-transparent"></div>
+
+      <!-- round "Best Seller" badge -->
+      <!-- <div class="hidden sm:flex absolute bottom-6 right-6 items-center gap-3 bg-cream-50/90 backdrop-blur rounded-full pl-3 pr-5 py-2 shadow-soft">
+        <div class="w-11 h-11 rounded-full overflow-hidden border border-gold-200">
+          <img src="/images/hero-thumb.jpg" alt="Best seller close-up" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="leading-tight">
+          <span class="text-[10px] uppercase tracking-wide text-ink-800/50 block">Featured</span>
+          <span class="font-script text-lg text-gold-500">Best Seller</span>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- bottom strip -->
+  <div class="flex items-center justify-between px-6 sm:px-10 md:px-16 py-4 border-t border-gold-200/60 bg-cream-50">
+    <span class="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-ink-800/50">Featured Earrings</span>
+    <span class="text-[10px] sm:text-xs text-ink-800/40">Our best selling design</span>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-ink-900 bg-cream-50;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* custom thin scrollbar for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 bg-gold-400 hover:bg-gold-500 text-white text-sm tracking-wide px-6 py-3 rounded-sm transition-colors duration-300;
+}
+
+.btn-outline {
+  @apply inline-flex items-center gap-2 border border-ink-900 hover:bg-ink-900 hover:text-white text-ink-900 text-sm tracking-wide px-6 py-3 rounded-sm transition-colors duration-300;
+}
+
+.section-label {
+  @apply text-xs tracking-[0.25em] uppercase text-gold-400 font-medium mb-3 block;
+}
+
+.eyebrow {
+  @apply text-center text-xs tracking-[0.25em] uppercase text-gold-400 font-medium;
+}

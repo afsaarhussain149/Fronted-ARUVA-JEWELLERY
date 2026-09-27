@@ -1,0 +1,48 @@
+<section id="best-sellers" class="bg-cream-100/60 py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <span class="section-label">Most Loved</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-ink-900">Best Sellers &amp; New Arrivals</h2>
+        <p class="text-ink-800/60 text-sm mt-2">Elegant pieces, loved by many.</p>
+      </div>
+      <a routerLink="/collections" class="hidden sm:flex items-center gap-1 text-sm text-gold-500 hover:text-gold-600 whitespace-nowrap">
+        View All
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+      <div *ngFor="let p of products" class="group bg-cream-50 rounded-sm shadow-card hover:shadow-soft transition-shadow overflow-hidden flex flex-col">
+        <div class="relative aspect-square overflow-hidden">
+          <!-- <span *ngIf="p.badge" class="absolute top-3 left-3 z-10 bg-ink-900 text-white text-[10px] tracking-wide px-2.5 py-1 rounded-sm">{{ p.badge }}</span> -->
+          <!-- <button class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-cream-50/90 flex items-center justify-center text-ink-800 hover:text-gold-400" aria-label="Add to wishlist">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-9.3-8.8C1 8 2.4 4.8 5.6 4.1c2-.4 3.9.5 5 2.2C11.7 4.6 13.6 3.7 15.6 4.1c3.2.7 4.6 3.9 2.9 7.1C19.7 15.6 12 20 12 20z"/></svg>
+          </button> -->
+          <img [src]="p.image" [alt]="p.name" loading="lazy"
+               class="block w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm text-ink-900 font-medium leading-snug line-clamp-2">{{ p.name }}</h3>
+          <div class="flex items-center gap-1 mt-2">
+            <svg *ngFor="let s of stars; let i = index" width="12" height="12" viewBox="0 0 24 24"
+                 [attr.fill]="i < p.rating ? '#C6A15C' : 'none'" stroke="#C6A15C" stroke-width="1.5">
+              <polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/>
+            </svg>
+            <span class="text-[11px] text-ink-800/50 ml-1">({{ p.reviews }})</span>
+          </div>
+          <div class="flex items-baseline gap-2 mt-2">
+            <span class="text-ink-900 font-semibold">₹{{ p.price }}</span>
+            <span class="text-ink-800/40 text-xs line-through">₹{{ p.mrp }}</span>
+          </div>
+          <!-- <button class="btn-outline mt-3 w-full justify-center text-xs py-2.5">Add to Cart</button> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="sm:hidden flex justify-center mt-8">
+      <a routerLink="/collections" class="btn-outline">View All</a>
+    </div>
+  </div>
+</section>

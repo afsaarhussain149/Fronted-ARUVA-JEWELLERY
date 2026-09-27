@@ -1,0 +1,12 @@
+<form (ngSubmit)="subscribe()" class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    required
+    placeholder="Your email address"
+    class="flex-1 bg-white border border-gold-200 rounded-sm px-4 py-3 text-sm placeholder:text-ink-800/40 focus:outline-none focus:ring-1 focus:ring-gold-400"
+  />
+  <button type="submit" class="btn-primary justify-center whitespace-nowrap">Subscribe</button>
+</form>
+<p *ngIf="submitted()" class="text-xs text-gold-500 mt-2 animate-fade-in">Thank you for subscribing to ARUVA!</p>

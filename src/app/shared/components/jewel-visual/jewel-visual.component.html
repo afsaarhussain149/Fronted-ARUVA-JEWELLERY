@@ -1,0 +1,71 @@
+<div
+  class="w-full h-full flex items-center justify-center overflow-hidden"
+  [ngClass]="{
+    'bg-gradient-to-br from-cream-100 via-cream-200 to-gold-100': shade === 'light',
+    'bg-gradient-to-br from-cream-200 via-gold-50 to-gold-100': shade === 'medium',
+    'bg-gradient-to-br from-[#EFE3CB] via-gold-100 to-gold-200': shade === 'dark'
+  }"
+>
+  <svg viewBox="0 0 120 120" class="w-2/3 h-2/3 text-gold-400 drop-shadow-sm" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Earring: bow + double tulip drop -->
+    <ng-container *ngIf="type === 'earring'">
+      <circle cx="60" cy="24" r="3.5" fill="currentColor" stroke="none"/>
+      <path d="M60 27 C 48 32, 40 30, 38 38 C 36 46, 44 48, 52 42" />
+      <path d="M60 27 C 72 32, 80 30, 82 38 C 84 46, 76 48, 68 42" />
+      <circle cx="45" cy="40" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="75" cy="40" r="2" fill="currentColor" stroke="none"/>
+      <line x1="52" y1="44" x2="52" y2="54" />
+      <line x1="68" y1="44" x2="68" y2="54" />
+      <ellipse cx="52" cy="66" rx="9" ry="14" fill="#FBF8F3" />
+      <ellipse cx="68" cy="70" rx="9" ry="14" fill="#FBF8F3" />
+      <ellipse cx="52" cy="84" rx="9" ry="14" fill="#FBF8F3" />
+    </ng-container>
+
+    <!-- Necklace: chain + flower pendant -->
+    <ng-container *ngIf="type === 'necklace'">
+      <path d="M28 24 Q 60 66 92 24" />
+      <circle cx="60" cy="72" r="4" fill="currentColor" stroke="none"/>
+      <g stroke-width="1.8">
+        <ellipse cx="60" cy="60" rx="5" ry="8" transform="rotate(0 60 60)"/>
+        <ellipse cx="60" cy="60" rx="5" ry="8" transform="rotate(72 60 60)"/>
+        <ellipse cx="60" cy="60" rx="5" ry="8" transform="rotate(144 60 60)"/>
+        <ellipse cx="60" cy="60" rx="5" ry="8" transform="rotate(216 60 60)"/>
+        <ellipse cx="60" cy="60" rx="5" ry="8" transform="rotate(288 60 60)"/>
+      </g>
+      <circle cx="60" cy="60" r="3.5" fill="#FBF8F3"/>
+    </ng-container>
+
+    <!-- Ring: band + oval gem -->
+    <ng-container *ngIf="type === 'ring'">
+      <circle cx="60" cy="72" r="24" />
+      <path d="M46 52 L52 38 L68 38 L74 52 Z" fill="#FBF8F3" />
+      <line x1="60" y1="38" x2="60" y2="52" stroke-width="1.4"/>
+      <line x1="52" y1="46" x2="68" y2="46" stroke-width="1.4"/>
+    </ng-container>
+
+    <!-- Bracelet: loop of beads -->
+    <ng-container *ngIf="type === 'bracelet'">
+      <ellipse cx="60" cy="65" rx="34" ry="22" />
+      <circle cx="26" cy="65" r="4" fill="#FBF8F3"/>
+      <circle cx="35" cy="45" r="4" fill="#FBF8F3"/>
+      <circle cx="52" cy="34" r="4" fill="#FBF8F3"/>
+      <circle cx="68" cy="34" r="4" fill="#FBF8F3"/>
+      <circle cx="85" cy="45" r="4" fill="#FBF8F3"/>
+      <circle cx="94" cy="65" r="4" fill="#FBF8F3"/>
+      <circle cx="85" cy="85" r="4" fill="#FBF8F3"/>
+      <circle cx="35" cy="85" r="4" fill="#FBF8F3"/>
+    </ng-container>
+
+    <!-- Pearl cluster -->
+    <ng-container *ngIf="type === 'pearl'">
+      <circle cx="60" cy="34" r="10" fill="#FBF8F3"/>
+      <circle cx="42" cy="56" r="10" fill="#FBF8F3"/>
+      <circle cx="78" cy="56" r="10" fill="#FBF8F3"/>
+      <circle cx="60" cy="78" r="12" fill="#FBF8F3"/>
+      <line x1="60" y1="24" x2="60" y2="14" />
+      <circle cx="60" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+    </ng-container>
+
+  </svg>
+</div>

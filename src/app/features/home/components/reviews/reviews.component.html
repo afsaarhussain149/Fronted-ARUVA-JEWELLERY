@@ -1,0 +1,45 @@
+<section class="bg-cream-100/60 py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="mb-10">
+      <span class="section-label">What Our Customers Say</span>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink-900">Real Reviews. Real Love.</h2>
+      <p class="text-ink-800/60 text-sm mt-2">4.8/5 &middot; Based on 2,500+ happy customers</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+      <div *ngFor="let r of reviews" class="bg-cream-50 rounded-sm shadow-card p-6 flex flex-col">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold-100 text-gold-500 font-serif flex items-center justify-center text-sm">
+            {{ r.name.charAt(0) }}
+          </div>
+          <div>
+            <p class="text-sm font-medium text-ink-900">{{ r.name }}</p>
+            <p class="text-[11px] text-ink-800/50">Verified Buyer</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1 mt-4">
+          <svg *ngFor="let s of stars; let i = index" width="12" height="12" viewBox="0 0 24 24"
+               [attr.fill]="i < r.rating ? '#C6A15C' : 'none'" stroke="#C6A15C" stroke-width="1.5">
+            <polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/>
+          </svg>
+        </div>
+        <p class="text-sm text-ink-800/70 mt-3 leading-relaxed flex-1">&ldquo;{{ r.text }}&rdquo;</p>
+        <p class="text-[11px] text-ink-800/40 mt-4">{{ r.date }}</p>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="font-serif text-xl md:text-2xl text-ink-900">Follow Us on Instagram</h3>
+        <span class="text-sm text-gold-500">&#64;aruvajewellery</span>
+      </div>
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 md:gap-4">
+        <div *ngFor="let img of instagramImages" class="aspect-square rounded-sm overflow-hidden shadow-card hover:opacity-90 transition-opacity">
+          <img [src]="img" alt="ARUVA Instagram post" loading="lazy" class="block w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+<section id="our-story" class="bg-cream-50 py-16 md:py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+    <!-- Visual collage -->
+    <div class="relative order-2 md:order-1">
+      <div class="grid grid-cols-3 gap-3 md:gap-4">
+        <div class="col-span-2 aspect-[4/5] rounded-sm overflow-hidden shadow-soft">
+          <img src="/images/products/drop-silver-necklace-1.jpg" alt="Model wearing ARUVA teardrop necklace" loading="lazy" class="block w-full h-full object-cover" />
+        </div>
+        <div class="col-span-1 aspect-[4/5] rounded-sm overflow-hidden shadow-soft mt-8">
+          <img src="/images/products/flower-purple-earring-1.jpg" alt="Model wearing ARUVA flower earrings" loading="lazy" class="block w-full h-full object-cover" />
+        </div>
+      </div>
+      <span class="hidden md:block absolute -bottom-6 right-6 font-script text-2xl text-gold-500">More than just jewellery ♥</span>
+    </div>
+
+    <!-- Text -->
+    <div class="order-1 md:order-2">
+      <span class="section-label">Our Story</span>
+      <h2 class="font-serif text-3xl md:text-4xl text-ink-900 leading-tight max-w-md">Timeless Beauty, Thoughtfully Crafted</h2>
+      <p class="text-ink-800/65 text-sm md:text-base mt-5 max-w-lg leading-relaxed">
+        At ARUVA, we believe jewellery is more than an accessory — it's a feeling. Each piece is designed with a perfect balance of elegance, minimalism and timeless charm.
+      </p>
+
+      <ul class="mt-7 space-y-4">
+        <li *ngFor="let point of points" class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 rounded-full bg-gold-50 text-gold-400 flex items-center justify-center shrink-0">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span>
+            <span class="block text-sm font-medium text-ink-900">{{ point.title }}</span>
+            <span class="block text-xs text-ink-800/55">{{ point.subtitle }}</span>
+          </span>
+        </li>
+      </ul>
+
+      <button class="btn-primary mt-8">Our Story</button>
+    </div>
+  </div>
+</section>
