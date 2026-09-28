@@ -18,6 +18,8 @@ export interface Product {
   type: JewelType;
   image: string;
   gallery?: string[];
+  description?: string;
+  material?: string;
 }
 
 export interface Review {

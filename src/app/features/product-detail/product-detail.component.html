@@ -1,0 +1,131 @@
+@if (product(); as p) {
+  <section class="bg-cream-50 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Breadcrumb -->
+      <nav class="flex flex-wrap items-center gap-2 text-xs text-ink-800/60 py-5">
+        <a routerLink="/" class="hover:text-gold-400">Home</a>
+        <span>/</span>
+        <a routerLink="/collections" [queryParams]="{ category: category()?.slug }" class="hover:text-gold-400">{{ category()?.name }}</a>
+        <span>/</span>
+        <span class="text-ink-900">{{ p.name }}</span>
+      </nav>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-14">
+
+        <!-- Gallery -->
+        <div class="flex flex-col-reverse md:flex-row gap-3">
+          <!-- Thumbnails -->
+          <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto no-scrollbar md:max-h-[520px]">
+            @for (img of images(); track img) {
+              <button (click)="activeImage.set(img)"
+                class="shrink-0 w-16 h-16 md:w-[72px] md:h-[72px] rounded-sm overflow-hidden border-2 transition-colors"
+                [ngClass]="activeImage() === img ? 'border-gold-400' : 'border-transparent hover:border-gold-200'">
+                <img [src]="img" [alt]="p.name" loading="lazy" class="w-full h-full object-cover" />
+              </button>
+            }
+          </div>
+
+          <!-- Main image with hover zoom -->
+          <div class="flex-1">
+            <div class="relative aspect-square rounded-sm overflow-hidden bg-cream-100 cursor-zoom-in"
+                 (pointerenter)="onEnter($event)"
+                 (pointerleave)="zooming.set(false)"
+                 (pointermove)="onMove($event)">
+              <img [src]="activeImage()" [alt]="p.name"
+                   class="w-full h-full object-cover transition-transform duration-200"
+                   [style.transform]="zooming() ? 'scale(2)' : 'scale(1)'"
+                   [style.transform-origin]="zoomOrigin()" />
+              @if (p.badge) {
+                <!-- <span class="absolute top-3 left-3 bg-ink-900 text-white text-[10px] tracking-wide px-2.5 py-1 rounded-sm">{{ p.badge }}</span> -->
+              }
+            </div>
+            <p class="hidden md:block text-xs text-ink-800/50 mt-3">Roll over image to zoom in</p>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div>
+          <h1 class="font-serif text-2xl md:text-3xl text-ink-900">{{ p.name }}</h1>
+
+          <div class="flex items-center gap-2 mt-3">
+            <div class="flex gap-0.5">
+              @for (s of stars; track s; let i = $index) {
+                <svg width="14" height="14" viewBox="0 0 24 24" [attr.fill]="i < p.rating ? '#C6A15C' : 'none'" stroke="#C6A15C" stroke-width="1.5">
+                  <polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/>
+                </svg>
+              }
+            </div>
+            <span class="text-xs text-ink-800/60">({{ p.reviews }} Reviews)</span>
+          </div>
+
+          <div class="flex items-center gap-3 mt-5">
+            <span class="text-3xl font-semibold text-ink-900">₹{{ p.price }}</span>
+            <span class="text-ink-800/40 line-through">₹{{ p.mrp }}</span>
+            <span class="text-xs border border-gold-200 bg-gold-50 text-gold-500 px-2 py-1 rounded-sm">{{ discount() }}% OFF</span>
+          </div>
+
+          <p class="text-sm text-ink-800/70 leading-relaxed mt-5 pb-5 border-b border-gold-100">{{ p.description }}</p>
+
+          <div class="flex gap-6 text-sm mt-5">
+            <span class="text-ink-800/60">Material</span>
+            <span class="text-ink-900">: {{ p.material }}</span>
+          </div>
+
+          <!-- <p class="text-sm text-ink-900 mt-6">Quantity</p>
+          <div class="inline-flex items-center border border-gold-200 rounded-sm mt-2">
+            <button (click)="decrease()" class="w-10 h-10 flex items-center justify-center hover:bg-gold-50" aria-label="Decrease quantity">−</button>
+            <span class="w-12 text-center text-sm">{{ quantity() }}</span>
+            <button (click)="increase()" class="w-10 h-10 flex items-center justify-center hover:bg-gold-50" aria-label="Increase quantity">+</button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 mt-6">
+            <button (click)="addToCart()" class="btn-primary flex-1 justify-center py-3.5">Add to Cart</button>
+            <button (click)="buyNow()" class="btn-outline flex-1 justify-center py-3.5">Buy Now</button>
+          </div>
+
+          <div class="flex items-center gap-6 mt-5 text-sm text-ink-800/70">
+            <button (click)="toggleWishlist()" class="flex items-center gap-2 hover:text-gold-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" [attr.fill]="wishlisted() ? '#C6A15C' : 'none'" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 20s-7-4.4-9.3-8.8C1 8 2.4 4.8 5.6 4.1c2-.4 3.9.5 5 2.2C11.7 4.6 13.6 3.7 15.6 4.1c3.2.7 4.6 3.9 2.9 7.1C19.7 15.6 12 20 12 20z"/>
+              </svg>
+              Add to Wishlist
+            </button>
+            <button (click)="share()" class="flex items-center gap-2 hover:text-gold-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/>
+              </svg>
+              Share
+            </button>
+          </div> -->
+
+          @if (toast()) {
+            <p class="text-sm text-gold-500 mt-4 animate-fade-in">{{ toast() }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- Related products -->
+      <div class="mt-16">
+        <h2 class="font-serif text-xl md:text-2xl text-ink-900 mb-6">You May Also Like</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+          @for (r of related(); track r.id) {
+            <a [routerLink]="['/product', r.id]" class="group block">
+              <div class="aspect-square rounded-sm overflow-hidden shadow-card">
+                <img [src]="r.image" [alt]="r.name" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <p class="text-sm text-ink-900 mt-2 line-clamp-1">{{ r.name }}</p>
+              <p class="text-sm text-gold-500">₹{{ r.price }}</p>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="bg-cream-50 py-24 text-center">
+    <h1 class="font-serif text-2xl text-ink-900">Product not found</h1>
+    <a routerLink="/collections" class="btn-primary mt-6">Back to Collections</a>
+  </section>
+}

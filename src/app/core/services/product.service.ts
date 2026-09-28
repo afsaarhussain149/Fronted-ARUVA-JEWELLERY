@@ -102,4 +102,24 @@ export class ProductService {
       { name: 'Bracelets', tags: 'Minimal · Chic · Sparkle', type: 'bracelet', count: 6, image: P + 'braided-silver-bracelet-1.jpg' },
     ];
   }
+
+    private details: Record<number, { description: string; material: string }> = {
+    1: { description: 'Make a statement with these butterfly drop earrings. Black enamel wings, sparkling crystal detail and three delicate gold chains ending in lustrous pearls. Perfect for parties and special occasions.', material: 'Alloy + Enamel + Pearl' },
+    2: { description: 'A pink crystal butterfly stud with an amethyst-toned teardrop and pearl-studded tassels. Soft, feminine and made to turn heads at weddings and festive evenings.', material: 'Alloy + Zircon + Pearl' },
+    3: { description: 'Lilac crystal petals bloom beneath a rosy pearl stud in this graceful ear-jacket design. Light to wear and pretty enough for every occasion.', material: 'Alloy + Zircon + Pearl' },
+    4: { description: 'A sparkling crystal flower paired with a lustrous pearl on a curved silver frame. Easy everyday elegance that also dresses up for special occasions.', material: 'Alloy + Zircon + Pearl' },
+    5: { description: 'A dazzling sunflower pendant set with baguette crystals on a sparkling twisted-link chain. A gift-worthy piece for celebrations and everyday shine.', material: 'Alloy + Zircon' },
+    6: { description: 'A brilliant teardrop crystal framed by a delicate halo of sparkling stones, on a fine cable chain with adjustable length.', material: 'Alloy + Zircon' },
+    7: { description: 'Crystal blossoms and vine leaves flow along this delicate bracelet, finished with a lobster clasp and adjustable chain.', material: 'Alloy + Zircon' },
+    8: { description: 'A gold-tone vine bracelet with sparkling oval and leaf-cut crystals. Pretty for weddings, parties and gifting.', material: 'Alloy + Zircon' },
+    9: { description: 'A crystal-studded heart stud with a pearl centre and a beaded chain dropping to a lustrous pearl. Sweet, romantic and easy to style.', material: 'Alloy + Crystal + Pearl' },
+    10: { description: 'A textured braided herringbone chain bracelet with an adjustable extension chain and lobster clasp. Minimal, modern and easy to layer.', material: 'Alloy' },
+  };
+
+  getProductById(id: number): Product | undefined {
+    const product = this.getAllProducts().find(p => p.id === id);
+    if (!product) return undefined;
+    const d = this.details[id];
+    return { ...product, description: d?.description, material: d?.material };
+  }
 }

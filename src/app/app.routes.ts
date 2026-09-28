@@ -13,5 +13,12 @@ export const routes: Routes = [
       import('./features/collections/collections.component').then(m => m.CollectionsComponent),
     title: 'Collections — ARUVA Jewellery',
   },
+  {
+    path: 'product/:id',
+    loadComponent: () =>
+      import('./features/product-detail/product-detail.component')
+        .then(m => m.ProductDetailComponent),
+    title: 'Product — ARUVA Jewellery',
+  },
   { path: '**', redirectTo: '' },
 ];
