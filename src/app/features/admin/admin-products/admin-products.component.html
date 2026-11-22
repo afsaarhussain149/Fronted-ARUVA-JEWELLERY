@@ -1,0 +1,114 @@
+<section class="bg-cream-50 py-10 min-h-[70vh]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div>
+        <h1 class="font-serif text-2xl md:text-3xl text-ink-900">Manage Products</h1>
+        <p class="text-xs text-ink-800/60 mt-1">Logged in: {{ email() }}</p>
+      </div>
+      <button type="button" (click)="logout()" class="btn-outline text-xs py-2 px-4">Logout</button>
+    </div>
+
+    <div class="border border-gold-200 bg-gold-50 rounded-sm p-4 text-xs text-ink-800/80 mb-6">
+      <p class="font-medium text-ink-900 mb-1">Photo rules</p>
+      <p>
+        Photos must be square (1:1). Best size is {{ IMG.size }}×{{ IMG.size }} px, minimum {{ IMG.minSize }}×{{ IMG.minSize }} px.
+        JPG, PNG or WebP, up to {{ maxMb }} MB. If a photo is not square, it is center-cropped automatically.
+      </p>
+    </div>
+
+    @if (success()) {
+      <p class="text-sm text-green-700 mb-4" role="status">{{ success() }}</p>
+    }
+
+    @if (loading()) {
+      <p class="text-sm text-ink-800/60 py-10 text-center">Loading…</p>
+    } @else if (loadError()) {
+      <p class="text-sm text-red-600 py-10 text-center" role="alert">{{ loadError() }}</p>
+    } @else {
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        @for (p of products(); track p.id) {
+          <div class="bg-white shadow-card rounded-sm overflow-hidden flex flex-col">
+            <div class="aspect-square bg-cream-100">
+              <img [src]="p.image" [alt]="p.name" class="block w-full h-full object-cover" />
+            </div>
+            <div class="p-3 flex flex-col flex-1">
+              <h3 class="text-sm text-ink-900 line-clamp-2">{{ p.name }}</h3>
+              <p class="text-sm mt-1">
+                <span class="font-semibold text-ink-900">₹{{ p.price }}</span>
+                <span class="text-xs text-ink-800/40 line-through ml-2">₹{{ p.mrp }}</span>
+              </p>
+              <button type="button" (click)="edit(p)" class="btn-outline mt-3 text-xs py-2 justify-center">Edit</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Edit popup -->
+@if (editing(); as ed) {
+  <div class="fixed inset-0 z-[60] bg-black/50 flex justify-center p-4 overflow-y-auto" (click)="cancel()">
+    <div class="bg-cream-50 w-full max-w-2xl rounded-sm p-5 sm:p-6 my-auto" (click)="$event.stopPropagation()"
+         role="dialog" aria-modal="true">
+
+      <h2 class="font-serif text-xl text-ink-900">{{ ed.name }}</h2>
+
+      <div class="grid grid-cols-2 gap-4 mt-5">
+        <div>
+          <label for="price" class="block text-sm text-ink-900">Price (₹)</label>
+          <input id="price" type="number" min="1" step="1" [(ngModel)]="price"
+            class="mt-1 w-full border border-gold-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold-400" />
+        </div>
+        <div>
+          <label for="mrp" class="block text-sm text-ink-900">MRP (₹)</label>
+          <input id="mrp" type="number" min="1" step="1" [(ngModel)]="mrp"
+            class="mt-1 w-full border border-gold-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold-400" />
+        </div>
+      </div>
+      <p class="text-xs text-ink-800/60 mt-2">Discount: {{ discount }}% OFF</p>
+
+      <p class="text-sm text-ink-900 mt-6">Photos <span class="text-ink-800/50 text-xs">(the first photo is the Main photo, max {{ maxPhotos }})</span></p>
+      <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-2">
+        @for (img of images(); track img; let i = $index) {
+          <div class="relative">
+            <div class="aspect-square rounded-sm overflow-hidden border-2"
+                 [class.border-gold-400]="i === 0" [class.border-transparent]="i !== 0">
+              <img [src]="img" alt="" class="block w-full h-full object-cover" />
+            </div>
+            @if (i === 0) {
+              <span class="absolute top-1 left-1 bg-ink-900 text-white text-[10px] px-1.5 py-0.5 rounded-sm">Main</span>
+            }
+            <div class="flex justify-between mt-1 text-[11px]">
+              @if (i !== 0) {
+                <button type="button" (click)="makeMain(i)" class="text-gold-500 hover:underline">Make main</button>
+              } @else {
+                <span></span>
+              }
+              <button type="button" (click)="remove(i)" class="text-red-600 hover:underline">Remove</button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <label class="btn-outline text-xs py-2 px-4 mt-4 inline-flex cursor-pointer" [class.opacity-60]="busy()">
+        + Add photo
+        <input type="file" class="hidden" multiple accept="image/jpeg,image/png,image/webp"
+               (change)="onFiles($event)" [disabled]="busy()" />
+      </label>
+
+      @if (error()) {
+        <p class="text-sm text-red-600 mt-4" role="alert">{{ error() }}</p>
+      }
+      @if (busy()) {
+        <p class="text-xs text-ink-800/60 mt-2">Please wait…</p>
+      }
+
+      <div class="flex gap-3 mt-6">
+        <button type="button" (click)="save()" [disabled]="busy()" class="btn-primary flex-1 justify-center py-3 disabled:opacity-60">Save</button>
+        <button type="button" (click)="cancel()" [disabled]="busy()" class="btn-outline flex-1 justify-center py-3 disabled:opacity-60">Cancel</button>
+      </div>
+    </div>
+  </div>
+}

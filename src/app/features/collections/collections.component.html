@@ -83,6 +83,6 @@
       </div>
     </div>
 
-    <p *ngIf="filteredProducts().length === 0" class="text-center text-ink-800/50 text-sm py-16">No pieces found in this category yet.</p>
+    <p *ngIf="!loading() && filteredProducts().length === 0" class="text-center text-ink-800/50 text-sm py-16">No pieces found in this category yet.</p>
   </div>
 </section>

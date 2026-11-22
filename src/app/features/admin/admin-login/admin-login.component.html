@@ -1,0 +1,23 @@
+<section class="bg-cream-50 min-h-[70vh] flex items-center justify-center px-4 py-16">
+  <form (ngSubmit)="submit()" class="w-full max-w-sm bg-white shadow-card rounded-sm p-6 sm:p-8">
+    <h1 class="font-serif text-2xl text-ink-900 text-center">Admin Login</h1>
+    <p class="text-xs text-ink-800/60 text-center mt-1">Sirf authorised admin ke liye</p>
+
+    <label for="email" class="block text-sm text-ink-900 mt-6">Email</label>
+    <input id="email" name="email" type="email" [(ngModel)]="email" required autocomplete="username"
+      class="mt-1 w-full border border-gold-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold-400" />
+
+    <label for="password" class="block text-sm text-ink-900 mt-4">Password</label>
+    <input id="password" name="password" type="password" [(ngModel)]="password" required autocomplete="current-password"
+      class="mt-1 w-full border border-gold-200 rounded-sm px-3 py-2.5 text-sm focus:outline-none focus:border-gold-400" />
+
+    @if (error()) {
+      <p class="text-sm text-red-600 mt-4" role="alert">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="loading()"
+      class="btn-primary w-full justify-center py-3 mt-6 disabled:opacity-60">
+      {{ loading() ? 'Please wait…' : 'Login' }}
+    </button>
+  </form>
+</section>

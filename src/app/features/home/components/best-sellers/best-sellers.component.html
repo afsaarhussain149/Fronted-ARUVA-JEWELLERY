@@ -13,7 +13,7 @@
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-      <div *ngFor="let p of products" class="group bg-cream-50 rounded-sm shadow-card hover:shadow-soft transition-shadow overflow-hidden flex flex-col">
+      <div *ngFor="let p of products()" class="group bg-cream-50 rounded-sm shadow-card hover:shadow-soft transition-shadow overflow-hidden flex flex-col">
         <div class="relative aspect-square overflow-hidden">
           <!-- <span *ngIf="p.badge" class="absolute top-3 left-3 z-10 bg-ink-900 text-white text-[10px] tracking-wide px-2.5 py-1 rounded-sm">{{ p.badge }}</span> -->
           <!-- <button class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-cream-50/90 flex items-center justify-center text-ink-800 hover:text-gold-400" aria-label="Add to wishlist">
