@@ -20,6 +20,7 @@ export interface Product {
   gallery?: string[];
   description?: string;
   material?: string;
+  isActive?: boolean;
 }
 
 export interface Review {

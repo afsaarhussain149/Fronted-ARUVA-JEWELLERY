@@ -17,6 +17,8 @@ export class ProductDetailComponent {
   private categories = this.productService.getCategories();
 
   product = signal<Product | undefined>(undefined);
+  allProducts = signal<Product[]>([]);
+  loading = signal(true);
   activeImage = signal('');
   quantity = signal(1);
   wishlisted = signal(false);
@@ -39,12 +41,23 @@ export class ProductDetailComponent {
   category = computed(() => this.categories.find(c => c.type === this.product()?.type));
 
   related = computed(() =>
-    this.productService.getAllProducts().filter(x => x.id !== this.product()?.id).slice(0, 4)
+    this.allProducts().filter(x => x.id !== this.product()?.id).slice(0, 4)
   );
 
   constructor() {
-    this.route.paramMap.subscribe(params => {
-      const p = this.productService.getProductById(Number(params.get('id')));
+    this.productService.getAllProducts()
+      .then(list => this.allProducts.set(list))
+      .catch(() => this.allProducts.set([]));
+
+    this.route.paramMap.subscribe(async params => {
+      this.loading.set(true);
+      let p: Product | undefined;
+      try {
+        p = await this.productService.getProductById(Number(params.get('id')));
+      } catch {
+        p = undefined;
+      }
+      this.loading.set(false);
       this.product.set(p);
       this.activeImage.set(p ? (p.gallery?.[0] ?? p.image) : '');
       this.quantity.set(1);

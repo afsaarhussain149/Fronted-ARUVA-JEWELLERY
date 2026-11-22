@@ -123,7 +123,7 @@
       </div>
     </div>
   </section>
-} @else {
+} @else if (!loading()) {
   <section class="bg-cream-50 py-24 text-center">
     <h1 class="font-serif text-2xl text-ink-900">Product not found</h1>
     <a routerLink="/collections" class="btn-primary mt-6">Back to Collections</a>

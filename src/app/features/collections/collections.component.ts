@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
-import { JewelType } from '../../core/models/product.model';
+import { JewelType, Product } from '../../core/models/product.model';
 
 
 @Component({
@@ -15,7 +15,8 @@ export class CollectionsComponent {
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
 
-  allProducts = this.productService.getAllProducts();
+  allProducts = signal<Product[]>([]);
+  loading = signal(true);
   curatedCollections = this.productService.getCollections();
   categories = this.productService.getCategories();
   stars = [1, 2, 3, 4, 5];
@@ -24,10 +25,16 @@ export class CollectionsComponent {
 
   filteredProducts = computed(() => {
     const f = this.activeFilter();
-    return f === 'all' ? this.allProducts : this.allProducts.filter(p => p.type === f);
+    const all = this.allProducts();
+    return f === 'all' ? all : all.filter(p => p.type === f);
   });
 
   constructor() {
+    this.productService.getAllProducts()
+      .then(p => this.allProducts.set(p))
+      .catch(() => this.allProducts.set([]))
+      .finally(() => this.loading.set(false));
+
     this.route.queryParamMap.subscribe(params => {
       const cat = params.get('category');
       const found = this.categories.find(c => c.slug === cat);
