@@ -44,6 +44,13 @@
           <svg *ngIf="!menuOpen()" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           <svg *ngIf="menuOpen()" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
         </button>
+
+        <!-- Admin login -->
+        <a routerLink="/admin/login" (click)="closeMenu()" aria-label="Admin login"
+           class="inline-flex items-center gap-1.5 text-xs tracking-wide text-ink-800 border border-gold-200 rounded-full px-3 py-1.5 hover:border-gold-400 hover:text-gold-500 transition-colors">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+          Admin
+        </a>
       </div>
     </div>
   </div>
